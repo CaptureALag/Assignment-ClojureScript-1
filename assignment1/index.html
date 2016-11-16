@@ -1,0 +1,208 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="out/goog/base.js"></script>
+        <script type="text/javascript" src="out/main.js"></script>
+        <script type="text/javascript">
+            var assignment1 = goog.require("assignment1.core");
+        </script>
+	</head>
+    <body>		
+		<h1>Variant 1</h1>
+		<h2>Savenkov Oleksii</h2>
+		
+		<h3>Task 1</h3>
+		<p>Реалізувати функцію Copies(s, s1, n) копіювання рядка s у рядок s1 n раз.</p>
+		s:<input id="t1-s">
+		s1:<input id="t1-s1">
+		n<input id="t1-n">
+		<br>
+		Answer: <input readonly id="t1-ans">
+		
+		
+		<h3>Task 2</h3>
+		<p>Реалізувати функцію фактеріалу від цілого числа.</p>
+		x:<input id="t2-x">
+		<br>
+		Factorial(x): <input readonly id="t2-ans">
+		
+		
+		<h3>Task 3</h3>
+		<p>Реалізувати функцію фактеріалу від цілого числа.Обчислити функцію Cos(x) через ряд Тейлора. Значення x
+– дійсне число, n – ціле. Значення x та n вводяться у формі. Результат вивести
+на форму разом з результатом, отриманим з застосуванням вбудованих
+функцій для тригонометричних обчислень та порівняти їх для різних значень n.</p>
+		x:<input id="t3-x">
+		eps:<input id="t3-eps">
+		<br>
+		CosTaylor(x): <input readonly id="t3-ans">
+		Math.cos(x): <input readonly id="t3-alt-ans">
+		
+		
+		<h3>Task 4</h3>
+		<p>Обчислити площу прямокутного трикутника за заданими катетами.</p>
+		a:<input id="t4-a">
+		b:<input id="t4-b">
+		<br>
+		Square: <input readonly id="t4-ans">
+		
+		
+		<h3>Task 5</h3>
+		<p>Student: Прізвище, Ім&#39;я, По батькові, Дата народження, Адреса, Телефон,
+Факультет, Курс. Створити масив об&#39;єктів. Вивести: а) список студентів
+заданого факультету; б) списки студентів для кожного факультету та курсу;
+в) список студентів, які народилися після заданого року.</p>
+		
+		<button onclick="showStudentsAll()">Show all</button>
+		<button onclick="showStudentsSpecificFaculty()">Show only specific faculty</button>
+		<button onclick="showStudentsGroupedByFacsAndYears()">Show grouped by faculties and years</button>
+		<button onclick="showStudentsYearGreaterThan()">Show where birthyear greater than</button>
+		
+		<script>
+			var ids = ["t1-s","t1-s1","t1-n", "t1-ans", "t2-x", "t2-ans", "t3-x", "t3-eps", "t3-ans", "t3-alt-ans",
+				"t4-a", "t4-b", "t4-ans"]
+			var elemsById = {}
+			for(var i = 0; i < ids.length; i++) {
+				elemsById[ids[i]] = document.getElementById(ids[i])
+			}
+			
+			var inputsGroupedByTask = {}
+			for(var i = 1; i <= 5; i++) {
+				inputsGroupedByTask[i] = Array.prototype.slice.call(
+					document.querySelectorAll("[id^=t" + i + "]:not([id*=ans])")
+				)
+			}
+		
+			inputsGroupedByTask[1].forEach(function(elem) {
+				elem.onkeyup = function() {
+					var s = elemsById["t1-s"].value
+					var s1 = elemsById["t1-s1"].value
+					var n = elemsById["t1-n"].value
+					
+					n = parseInt(n)
+					
+					if(n >= 0) {
+						var answer = assignment1.core.Copies(s, s1, n)
+					} else {
+						var answer = "Invalid input"
+					}
+					
+					elemsById["t1-ans"].value = answer
+				}
+			})
+		
+			inputsGroupedByTask[2].forEach(function(elem) {
+				elem.onkeyup = function() {
+					console.log('asdf')
+				
+					var x = elemsById["t2-x"].value
+					
+					x = parseInt(x)
+					
+					if(x >= 0) {
+						var answer = assignment1.core.Factorial(x)
+					} else {
+						var answer = "Invalid input"
+					}
+					
+					elemsById["t2-ans"].value = answer
+				}
+			})
+			
+			inputsGroupedByTask[4].forEach(function(elem) {
+				elem.onkeyup = function() {
+					var a = elemsById["t4-a"].value
+					var b = elemsById["t4-b"].value
+					
+					a = parseInt(a)
+					b = parseInt(b)
+					
+					if(a > 0 && b > 0) {
+						var answer = assignment1.core.SqrByCathetus(a, b)
+					} else {
+						var answer = "Invalid input"
+					}
+					
+					elemsById["t4-ans"].value = answer
+				}
+			})
+			
+			var students = [ {
+				name: "Student 1",
+				birthday: new Date(1997, 12, 16),
+				address: "Address 1",
+				faculty: "FI",
+				year: 1
+			}, {
+				name: "Student 2",
+				birthday: new Date(1995, 12, 16),
+				address: "Address 2",
+				faculty: "FI",
+				year: 2
+			},{
+				name: "Student 3",
+				birthday: new Date(1997, 11, 16),
+				address: "Address 3",
+				faculty: "FI",
+				year: 1
+			},{
+				name: "Student 4",
+				birthday: new Date(1993, 12, 16),
+				address: "Address 4",
+				faculty: "FI",
+				year: 3
+			},{
+				name: "Student 5",
+				birthday: new Date(2000, 12, 16),
+				address: "Address 5",
+				faculty: "FI",
+				year: 1
+			},{
+				name: "Student 6",
+				birthday: new Date(1997, 12, 16),
+				address: "Address 6",
+				faculty: "FE",
+				year: 1
+			},{
+				name: "Student 7",
+				birthday: new Date(1992, 12, 16),
+				address: "Address 7",
+				faculty: "FI",
+				year: 2
+			},{
+				name: "Student 8",
+				birthday: new Date(1999, 12, 16),
+				address: "Address 8",
+				faculty: "FE",
+				year: 2
+			},{
+				name: "Student 9",
+				birthday: new Date(1994, 12, 16),
+				address: "Address 9",
+				faculty: "FI",
+				year: 1
+			},{
+				name: "Student 10",
+				birthday: new Date(1997, 12, 16),
+				address: "Address 1",
+				faculty: "FI",
+				year: 2
+			}
+			]
+			
+			function showStudentsAll() {
+				alert(JSON.stringify(students))
+			}
+			function showStudentsSpecificFaculty() {
+				var faculty = prompt("Enter faculty")
+			}
+			function showStudentsGroupedByFacsAndYears() {
+				
+			}
+			function showStudentsYearGreaterThan() {
+				var year = prompt("Enter year")
+			}
+		</script>
+		
+    </body>
+</html>
